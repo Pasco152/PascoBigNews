@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 导包 -->
+    <script src="./wangEditor.min.js"></script>
+</head>
+
+<body>
+    <!-- html样式 -->
+    <div id="div1"></div>
+
+    <script>
+        // 初始化js
+        const E = window.wangEditor
+        const editor = new E('#div1')
+        // 或者 const editor = new E( document.getElementById('div1') )
+        editor.create()
+    </script>
+</body>
+
+</html>

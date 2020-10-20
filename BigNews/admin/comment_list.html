@@ -142,7 +142,7 @@
         </tbody>
       </table>
       <div class="row text-center">
-        <ul class="pagination pagination-sm">
+        <!-- <ul class="pagination pagination-sm">
           <li class="page-item first disabled"><a href="#" class="page-link">首页</a></li>
           <li class="page-item prev disabled"><a href="#" class="page-link">上一页</a></li>
           <li class="page-item active"><a href="#" class="page-link">1</a></li>
@@ -154,12 +154,107 @@
           <li class="page-item"><a href="#" class="page-link">7</a></li>
           <li class="page-item next"><a href="#" class="page-link">下一页</a></li>
           <li class="page-item last"><a href="#" class="page-link">尾页</a></li>
-        </ul>
+        </ul> -->
         <ul id="pagination" class="pagination-sm"></ul>
       </div>
 
     </div>
   </div>
+
+  <script id="comment_search" type="text/html">
+    {{each data.data v}}
+    {{if v.state == '待审核'}}
+    <tr class='danger'>
+    {{else}}
+    <tr>
+    {{/if}}
+      <td>{{v.author}}</td>
+      <td>{{v.content}}</td>
+      <td>{{v.title}}</td>
+      <td>{{v.date}} {{v.time}}</td>
+      <td>{{v.state}}</td>
+      <td class="text-center">
+        {{if v.state == '已通过'}}
+        <a data-id="{{v.id}}" data-url="comment_reject" href="javascript:void(0);;" class="btn btn-warning btn-xs btn-reject">拒绝</a>
+        {{else if v.state == '待审核'}}
+        <a data-id="{{v.id}}" data-url="comment_pass" href="javascript:void(0);;" class="btn btn-info btn-xs btn-pass">批准</a>
+        {{/if}}
+        <a data-id="{{v.id}}" data-url="comment_delete" href="javascript:void(0);;" class="btn btn-danger btn-xs btn-delete">删除</a>
+      </td>
+    </tr>
+    {{/each}}
+  </script>
+  <script src="./FuckThing/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./FuckThing/bootstrap/jquery.twbsPagination.js"></script>
+  <script src="./libs/http.js"></script>
+  <script>
+    // 入口函数
+    $(function () {
+      // 进入页面加载所有数据
+      $.ajax({
+        url: BigNew.comment_search,
+        type: 'get',
+        dataType: 'json',
+        data: {
+          page: 1,
+          perpage: 10
+        },
+        success: function (backData) {
+          console.log(backData);
+          $('table>tbody').html(template('comment_search', backData))
+          // 生成
+          $('#pagination').twbsPagination({
+            totalPages: backData.data.totalPage,
+            startPage: 1,
+            visiblePages: 10,
+            first: '首页',
+            prev: '上一页',
+            next: '下一页',
+            last: '尾页',
+            onPageClick: function (event, page) {
+              $('#page-content').text('Page ' + page);
+              getPage(page)
+            }
+          });
+        }
+      });
+      // 封装一个渲染数据函数
+      function getPage(currentPage) {
+        $.ajax({
+          url: BigNew.comment_search,
+          type: 'get',
+          dataType: 'json',
+          data: {
+            page: currentPage,
+            perpage: 10
+          },
+          success: function (backData) {
+            console.log(backData);
+            $('table>tbody').html(template('comment_search', backData))
+          }
+        });
+      }
+      // 给批准拒绝按钮设置点击事件
+      $('table>tbody').on('click','.btn-pass,.btn-reject,.btn-delete',function () {
+        // console.log(123);
+        $.ajax({
+          url:BigNew[$(this).attr('data-url')],
+          type:'post',
+          dataType:'json',
+          data:{
+            id:$(this).attr('data-id')
+          },
+          success: function(backData){
+            console.log(backData);
+            if (backData.code == 200) {
+              alert(backData.msg);
+              window.location.reload()
+            }
+          }
+        });
+      })
+    })
+  </script>
 </body>
 
 </html>

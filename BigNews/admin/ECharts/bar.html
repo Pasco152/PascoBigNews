@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+    <script src="./echarts.min.js"></script>
+</head>
+
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 1000px;height:500px;"></div>
+    <script>
+        // 基于准备好的dom，初始化echarts实例
+        let myChart = echarts.init(document.getElementById('main'));
+
+        // 指定图表的配置项和数据
+        let option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {            // 坐标轴指示器，坐标轴触发有效
+                    type: 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+                }
+            },
+            title: {
+                text:'分类访问量',
+                left:'center'
+            },
+            legend: {
+                data: ['爱生活', '爱美食', '爱旅行', '爱电影', '爱保健'],
+                top: 30
+            },
+            color: [
+                '#5885e8', '#13cfd5', '#00ce68', '#ff9565', '#20ff19'
+            ],
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: [
+                {
+                    type: 'category',
+                    data: ['一月', '二月', '三月', '四月']
+                }
+            ],
+            yAxis: [
+                {
+                    type: 'value'
+                }
+            ],
+            series: [
+                {
+                    name: '爱生活',
+                    type: 'bar',
+                    data: [320, 332, 301, 334, 390, 330, 320]
+                },
+                {
+                    name: '爱美食',
+                    type: 'bar',
+                    // stack: '广告',// 堆叠属性,重要
+                    data: [120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name: '爱旅行',
+                    type: 'bar',
+                    // stack: '广告',
+                    data: [220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name: '爱电影',
+                    type: 'bar',
+                    // stack: '广告',
+                    data: [150, 232, 201, 154, 190, 330, 410]
+                },
+                {
+                    name: '爱保健',
+                    type: 'bar',
+                    data: [862, 818, 964, 826, 879, 800, 870],
+                    markLine: {
+                        lineStyle: {
+                            type: 'dashed'
+                        },
+                        data: [
+                            [{ type: 'min' }, { type: 'max' }]
+                        ]
+                    }
+                }
+            ]
+        };
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+
+    </script>
+</body>
+
+</html>

@@ -22,6 +22,7 @@
         data_visit: baseURL + '/admin/data/visit',// 日文章访问量
         comment_search: baseURL + '/admin/comment/search',// 文章评论搜索
         comment_pass: baseURL + '/admin/comment/pass',// 评论审核通过
+        comment_reject: baseURL + '/admin/comment/reject',// 评论审核不通过
         comment_delete: baseURL + '/admin/comment/delete',// 删除评论
     };
     // 把沙箱里的变量暴露出去

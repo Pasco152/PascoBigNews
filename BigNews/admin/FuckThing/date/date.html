@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- 导包 -->
+    <link rel="stylesheet" href="./css/jeDate-test.css">
+    <link rel="stylesheet" href="./css/jedate.css">
+    <script src="./js/jedate.js"></script>
+</head>
+
+<body>
+    <!-- html样式 -->
+    <div class="jeitem">
+        <label class="jelabel">点击图标</label>
+        <div class="jeinpbox">
+            <input type="text" class="jeinput" id="testico" placeholder="YYYY-MM-DD">
+            <div class="icons jebtns" onclick="jeDate('#testico',{trigger:false,format: 'YYYY-MM-DD',festival:true,zIndex:2099})"></div>
+        </div>
+
+    </div>
+
+    <script>
+        // 初始化js    
+        jeDate("#testico", {
+            format: "YYYY-MM-DD",
+            isTime: true,
+            minDate: "2014-09-19 00:00:00",
+            festival:true,
+            isinitVal:true,
+            multiPane:true,
+            zIndex:2099,
+        })
+    </script>
+</body>
+
+</html>
